@@ -1,6 +1,8 @@
 package br.com.sgv.controller;
 
+import br.com.sgv.model.Departamento;
 import br.com.sgv.model.Funcionario;
+import br.com.sgv.repository.DepartamentoRepository;
 import br.com.sgv.repository.FuncionarioRepository;
 import jakarta.validation.Valid;
 import java.util.Optional;
@@ -15,49 +17,55 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/funcionarios")
-public class FuncionarioController {
+@RequestMapping("/departamentos")
+public class DepartamentoController {
+    @Autowired
+    private DepartamentoRepository departamentoRepository;
     @Autowired
     private FuncionarioRepository funcionarioRepository;
-
+    
     @GetMapping()
     public String listar(Model model) {
-        model.addAttribute("listafuncionario", funcionarioRepository.findAll());
+        model.addAttribute("listaDepartamento", departamentoRepository.findAll());
         
-        return "gerenciar_funcionarios";
+        return "gerenciar_departamentos";
     }
     
     @GetMapping("/novo")
     public String novo(Model model) {
-        model.addAttribute("funcionario", new Funcionario());
-        return "editar_funcionario";
+        model.addAttribute("listaFuncionario", funcionarioRepository.findAll());
+        model.addAttribute("departamento", new Departamento());
+        return "editar_departamento";
     }
 
     @GetMapping("/{id}")
     public String editar(@PathVariable("id") String id, Model model) {
-        Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
-        model.addAttribute("funcionario", funcionario.get());
-        return "editar_funcionario";
+        Optional<Departamento> departamento = departamentoRepository.findById(id);
+        model.addAttribute("listaFuncionario", funcionarioRepository.findAll());
+        model.addAttribute("departamento", departamento.get());
+        return "editar_departamento";
     }
     
     
     @PostMapping()
-    public String salvar(@Valid Funcionario funcionario, BindingResult result) {
+    public String salvar(@Valid Departamento departamento, BindingResult result) {
         if (result.hasErrors()) {
-            // FIXME: campo cpf não sendo validado corretamente
             for (var e : result.getAllErrors()) {
                 System.out.println(e);
             }
-            return "editar_funcionario";
+            return "editar_departamento";
         }
-        funcionarioRepository.save(funcionario);
-        return "redirect:/funcionarios";
+        departamentoRepository.save(departamento);
+        return "redirect:/departamentos";
     }
 
     @DeleteMapping("/{id}")
     public String excluir(@PathVariable("id") String id) {
-        funcionarioRepository.deleteById(id);
-        return "redirect:/funcionarios";
+        departamentoRepository.deleteById(id);
+        return "redirect:/departamentos";
     }
+    
+    // TODO: /departamentos/funcionario
+    // TODO: /departamentos/funcionario/{{ID}}
+
 }
-         

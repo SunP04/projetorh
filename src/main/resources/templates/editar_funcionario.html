@@ -12,7 +12,7 @@
     <body>
         <div th:replace="header :: header">...</div>
         <div class="container" style="margin-top: 50px; width: 50%;">
-            <h2 class="alert alert-dark">Editar Pessoa Física</h2>
+            <h2 class="alert alert-dark">Editar Funcionarios</h2>
             <form action="#" th:action="@{/funcionarios}" th:object="${funcionario}" method="post">
                 <input type="hidden" th:field="*{codigoCadastro}" id="id">
                 <hr class="mb-4">
