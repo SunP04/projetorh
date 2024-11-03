@@ -35,6 +35,7 @@ public class DepartamentoController {
     public String novo(Model model) {
         model.addAttribute("listaFuncionario", funcionarioRepository.findAll());
         model.addAttribute("departamento", new Departamento());
+        model.addAttribute("funcionario", new Funcionario());
         return "editar_departamento";
     }
 
@@ -43,6 +44,7 @@ public class DepartamentoController {
         Optional<Departamento> departamento = departamentoRepository.findById(id);
         model.addAttribute("listaFuncionario", funcionarioRepository.findAll());
         model.addAttribute("departamento", departamento.get());
+        model.addAttribute("funcionario", new Funcionario());
         return "editar_departamento";
     }
     
@@ -65,7 +67,7 @@ public class DepartamentoController {
         return "redirect:/departamentos";
     }
     
-    // TODO: /departamentos/funcionario
-    // TODO: /departamentos/funcionario/{{ID}}
+    // TODO: POST   /departamentos/{{ID_DEP}}/funcionario
+    // TODO: DELETE /departamentos/{{ID_DEP}}/funcionario/{{ID_FUNC}}
 
 }

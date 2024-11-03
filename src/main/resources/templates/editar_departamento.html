@@ -16,11 +16,11 @@
     <body>
         <div th:replace="header :: header">...</div>
         <div class="container" style="margin-top: 50px">
-            <h2 class="alert alert-dark">Editar Venda</h2>
+            <h2 class="alert alert-dark">Editar Departamento</h2>
 	    <div class="row" >
                 <div class="col">
-                    <form action="#" th:action="@{/departamentos}" th:object="${venda}" method="post">
-                        <input type="hidden" th:field="*{id}" id="id">
+                    <form action="#" th:action="@{/departamentos}" th:object="${departamento}" method="post">
+                        <input type="hidden" th:field="*{codigoDepartamento}" id="id">
                         <h3> Dados do Departmento:</h3>
                         <hr>
                         <div class="row">
@@ -34,10 +34,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="f : ${departamento.listaFuncionarios}" th:field="*{listaFuncionarios}">
-                                            <td th:text="${f.id}"></td>
+                                        <tr th:each="f : ${departamento.funcionarios}" th:field="*{funcionarios}">
+                                            <td th:text="${f.codigoDepartamento}"></td>
                                             <td th:text="${f.nome}"></td>
-                                            <td><a th:href="@{/departamentos/funcionarios/{id}(id=${i.id})}" class="btn btn-danger"><i class="bi bi-trash"></i></a></td>
+                                            <td><a th:href="@{/departamentos/{dep_id}funcionarios/{func_id}(dep_id=${departamento.codigoDepartamento}, func_id=${f.id})}" class="btn btn-danger"><i class="bi bi-trash"></i></a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -51,15 +51,15 @@
                 <div class="col">
                     <!-- FIXME: Como adicionar um funcionario por esse menu sem usar uma tabela a mais -->
                     <!-- BONUS: Não precisar sair da página -->
-                    <form th:action="@{/departamentos/funcionario}" th:object="${departamentoFuncionario}" method="post">
+                    <form th:action="@{/departamentos/{id}/funcionario(id=${departamento.codigoDepartamento})}" th:object="${funcionario}" method="post">
                         <h3> Adicionar novos funcionários</h3>
                         <hr>
                         <div class="row" >
                             <div class="col">
                                 <label for="quantidade">Funcionarios</label>
-                                <select class="form-control" id="comboFuncionario" th:field="*{funcionario}">
+                                <select class="form-control" id="comboFuncionario" th:field="*{codigoCadastro}">
                                     <option value="0">Selecione o Funcionario</option>
-                                    <option th:each="p : ${listaFuncionarios}" th:value="${p.id}" th:text="${p.nome}" ></option>
+                                    <option th:each="f : ${listaFuncionarios}" th:value="${f.id}" th:text="${f.nome}" ></option>
                                 </select>    
                             </div>
                         </div>
