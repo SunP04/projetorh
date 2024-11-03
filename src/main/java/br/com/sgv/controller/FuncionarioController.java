@@ -45,6 +45,7 @@ public class FuncionarioController {
     @PostMapping()
     public String salvar(@Valid Funcionario funcionario, BindingResult result) {
         if (result.hasErrors()) {
+            // FIXME: campo cpf não sendo validado corretamente
             for (var e : result.getAllErrors()) {
                 System.out.println(e);
             }
