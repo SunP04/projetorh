@@ -68,6 +68,33 @@ public class DepartamentoController {
     }
     
     // TODO: POST   /departamentos/{{ID_DEP}}/funcionario
-    // TODO: DELETE /departamentos/{{ID_DEP}}/funcionario/{{ID_FUNC}}
+    @PostMapping("/{id}/funcionario")
+    public String adicionarFuncionario(
+            @PathVariable("id") String idDepartamento,
+            @Valid Funcionario funcionario,
+            Model model) {
+        // FIXME: Handle optionals properly
+        Departamento departamento = departamentoRepository.findById(idDepartamento).get();
+        departamento.adicionarFuncionario(funcionario);
+        departamentoRepository.save(departamento);
+       
+        return "redirect:/departamentos";
+    }
+    
+    @DeleteMapping("/{idDep}/funcionario/{idFunc}")
+    public String removerFuncionario(
+            @PathVariable("idDep") String idDepartamento,
+            @PathVariable("idFunc") String idFuncionario,
+            Model model
+    ) {
+        // FIXME: Handle optionals properly
+        Funcionario funcionario = funcionarioRepository.findById(idFuncionario).get();
+        Departamento departamento = departamentoRepository.findById(idDepartamento).get();
+        
+        departamento.removerFuncionario(funcionario);
+        departamentoRepository.save(departamento);
+        
+        return "redirect:/departamentos";
+    }
 
 }
