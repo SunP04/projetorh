@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <label for="cpf">Data de Admissão:</label>
-                        <input type="date" th:field="*{dataAdmissao}" id="dataAdmissao" placeholder="DD/MM/YYYY" class="form-control">
+                        <input type="date" th:field="*{dataAdmissao}" id="dataAdmissao" placeholder="dd/MM/yyyy" class="form-control">
                     </div>    
                     <span th:if="${#fields.hasErrors('cpf')}" th:errors="*{dataAdmissao}" class="alert alert-warning"></span>
                 </div>

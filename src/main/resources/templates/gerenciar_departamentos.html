@@ -33,9 +33,9 @@
                     <tr th:each="d : ${listaDepartamento}">
                         <td th:text="${d.codigoDepartamento}"></td>
                         <td th:text="${d.descricao}"></td>
-                        <td><a th:href="@{/departamentos/{id}(id=${p.id})}" class="btn btn-warning"><i class="bi bi-pencil"></i></a></td>
+                        <td><a th:href="@{|/departamentos/${d.codigoDepartamento}|}" class="btn btn-warning"><i class="bi bi-pencil"></i></a></td>
                         <td>
-                            <form action="#" th:action="@{/departamentos/{id}(id=${p.id})}" th:method="delete">
+                            <form action="#" th:action="@{|/departamentos/${d.codigoDepartamento}|}" th:method="delete">
                                 <button type="submit" id="deleteButton" class="btn btn-danger"><i class="bi bi-trash"></i></button>
                             </form>
                         </td>

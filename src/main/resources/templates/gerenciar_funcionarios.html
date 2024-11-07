@@ -26,20 +26,22 @@
                         <th>Código</th>
                         <th>Nome</th>
                         <th>CPF</th>
+                        <th>Data Admissão</th>
+                        <th>Status Demissão</th>
                         <th>Alterar</th>
                         <th>Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="f : ${listaFuncionarios}">
+                    <tr th:each="f : ${listaFuncionario}">
                         <td th:text="${f.codigoCadastro}"></td>
                         <td th:text="${f.nome}"></td>
-                        <td th:text="${c.cpf}"></td>
-                        <td th:text="${c.dataAdmissao}"></td>
-                        <td th:text="${c.dataDemissao} == null ? 'Em Atuação' : 'Demitido'"></td>
-                        <td><a th:href="@{/funcionarios/{id}(id=${p.id})}" class="btn btn-warning"><i class="bi bi-pencil"></i></a></td>
+                        <td th:text="${f.cpf}"></td>
+                        <td th:text="${f.getDataAdmissaoFormatada()}"></td>
+                        <td th:text="${f.dataDemissao} == null ? 'Em Atuação' : 'Demitido'"></td>
+                        <td><a th:href="@{|/funcionarios/{f.codigoCadastro}|}" class="btn btn-warning"><i class="bi bi-pencil"></i></a></td>
                         <td>
-                            <form action="#" th:action="@{/funcionarios/{id}(id=${p.id})}" th:method="delete">
+                            <form action="#" th:action="@{|/funcionarios/${f.codigoCadastro}|}" th:method="delete">
                                 <button type="submit" id="deleteButton" class="btn btn-danger"><i class="bi bi-trash"></i></button>
                             </form>
                         </td>

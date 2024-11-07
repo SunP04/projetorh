@@ -22,7 +22,7 @@ public class FuncionarioController {
 
     @GetMapping()
     public String listar(Model model) {
-        model.addAttribute("listafuncionario", funcionarioRepository.findAll());
+        model.addAttribute("listaFuncionario", funcionarioRepository.findAll());
         
         return "gerenciar_funcionarios";
     }
@@ -34,7 +34,7 @@ public class FuncionarioController {
     }
 
     @GetMapping("/{id}")
-    public String editar(@PathVariable("id") String id, Model model) {
+    public String editar(@PathVariable("id") long id, Model model) {
         Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
         model.addAttribute("funcionario", funcionario.get());
         return "editar_funcionario";
@@ -44,7 +44,6 @@ public class FuncionarioController {
     @PostMapping()
     public String salvar(@Valid Funcionario funcionario, BindingResult result) {
         if (result.hasErrors()) {
-            // FIXME: campo cpf não sendo validado corretamente
             for (var e : result.getAllErrors()) {
                 System.out.println(e);
             }
@@ -55,7 +54,7 @@ public class FuncionarioController {
     }
 
     @DeleteMapping("/{id}")
-    public String excluir(@PathVariable("id") String id) {
+    public String excluir(@PathVariable("id") long id) {
         funcionarioRepository.deleteById(id);
         return "redirect:/funcionarios";
     }

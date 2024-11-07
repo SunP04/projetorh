@@ -5,6 +5,7 @@ import br.com.sgv.model.Funcionario;
 import br.com.sgv.repository.DepartamentoRepository;
 import br.com.sgv.repository.FuncionarioRepository;
 import jakarta.validation.Valid;
+import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,7 +41,7 @@ public class DepartamentoController {
     }
 
     @GetMapping("/{id}")
-    public String editar(@PathVariable("id") String id, Model model) {
+    public String editar(@PathVariable("id") long id, Model model) {
         Optional<Departamento> departamento = departamentoRepository.findById(id);
         model.addAttribute("listaFuncionario", funcionarioRepository.findAll());
         model.addAttribute("departamento", departamento.get());
@@ -58,11 +59,11 @@ public class DepartamentoController {
             return "editar_departamento";
         }
         departamentoRepository.save(departamento);
-        return "redirect:/departamentos";
+        return String.format("redirect:/departamentos/%d", departamento.getCodigoDepartamento());
     }
 
     @DeleteMapping("/{id}")
-    public String excluir(@PathVariable("id") String id) {
+    public String excluir(@PathVariable("id") long id) {
         departamentoRepository.deleteById(id);
         return "redirect:/departamentos";
     }
@@ -70,21 +71,23 @@ public class DepartamentoController {
     // TODO: POST   /departamentos/{{ID_DEP}}/funcionario
     @PostMapping("/{id}/funcionario")
     public String adicionarFuncionario(
-            @PathVariable("id") String idDepartamento,
+            @PathVariable("id") long idDepartamento,
             @Valid Funcionario funcionario,
             Model model) {
-        // FIXME: Handle optionals properly
-        Departamento departamento = departamentoRepository.findById(idDepartamento).get();
+        Departamento departamento = departamentoRepository
+                            .findById(idDepartamento)
+                            .orElse(new Departamento(idDepartamento, "", new ArrayList<>()));
+        
         departamento.adicionarFuncionario(funcionario);
         departamentoRepository.save(departamento);
        
-        return "redirect:/departamentos";
+        return "redirect:/departamentos/";
     }
     
-    @DeleteMapping("/{idDep}/funcionario/{idFunc}")
+    @PostMapping("/{idDep}/funcionario/{idFunc}")
     public String removerFuncionario(
-            @PathVariable("idDep") String idDepartamento,
-            @PathVariable("idFunc") String idFuncionario,
+            @PathVariable("idDep") long idDepartamento,
+            @PathVariable("idFunc") long idFuncionario,
             Model model
     ) {
         // FIXME: Handle optionals properly

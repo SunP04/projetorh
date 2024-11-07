@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -13,18 +16,20 @@ import lombok.Setter;
 @Entity
 public class Funcionario {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String codigoCadastro;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long codigoCadastro;
     private String nome;
     @Setter(AccessLevel.NONE)
     private String cpf;
-    private Date dataAdmissao;
-    private Date dataDemissao;
+    private LocalDate dataAdmissao;
+    private LocalDate dataDemissao;
     
     public void setCpf(String cpf) {
-        if (cpfValido(cpf)) {
-            this.cpf = cpf;
-        }
+        this.cpf = cpf;
+    }
+    
+    public String getDataAdmissaoFormatada() {
+        return this.dataAdmissao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
     
     // https://www.devmedia.com.br/validando-o-cpf-em-uma-aplicacao-java/22097
@@ -34,8 +39,8 @@ public class Funcionario {
 
         String[] partes = cpf.split("-");
 
-        String digitos = partes[1].replace(".", "");
-        Integer verificador = Integer.valueOf(partes[2]);
+        String digitos = partes[0].replace(".", "");
+        Integer verificador = Integer.valueOf(partes[1]);
         
         // 1° Digito Verificador
         int fstDig = 0;
