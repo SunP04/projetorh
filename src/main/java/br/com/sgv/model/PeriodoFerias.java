@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import java.util.Date;
 import lombok.Data;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Entity
@@ -17,6 +19,14 @@ public class PeriodoFerias {
     
     @ManyToOne
     private Funcionario funcionario;
-    private Date dataInicio;
-    private Date dataFim;
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
+
+    public String getDataInicioFormatada() {
+        return this.dataInicio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
+    public String getDataFimFormatada() {
+        return this.dataFim.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
 }
