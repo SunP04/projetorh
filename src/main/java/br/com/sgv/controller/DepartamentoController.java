@@ -81,7 +81,7 @@ public class DepartamentoController {
         departamento.adicionarFuncionario(funcionario);
         departamentoRepository.save(departamento);
        
-        return "redirect:/departamentos/";
+        return "redirect:/departamentos";
     }
     
     @PostMapping("/{idDep}/funcionario/{idFunc}")

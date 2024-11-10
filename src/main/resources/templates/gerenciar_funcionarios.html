@@ -37,7 +37,7 @@
                         <td th:text="${f.codigoCadastro}"></td>
                         <td th:text="${f.nome}"></td>
                         <td th:text="${f.cpf}"></td>
-                        <td th:text="${f.getDataAdmissaoFormatada()}"></td>
+                        <td th:text="${f.dataAdmissao} == null ? 'Não Encontrado' : ${f.getDataAdmissaoFormatada()}"></td>
                         <td th:text="${f.dataDemissao} == null ? 'Em Atuação' : 'Demitido'"></td>
                         <td><a th:href="@{|/funcionarios/{f.codigoCadastro}|}" class="btn btn-warning"><i class="bi bi-pencil"></i></a></td>
                         <td>

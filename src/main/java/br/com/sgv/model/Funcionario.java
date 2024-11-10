@@ -4,10 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.text.SimpleDateFormat;
+import jakarta.persistence.OneToMany;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -23,6 +24,11 @@ public class Funcionario {
     private String cpf;
     private LocalDate dataAdmissao;
     private LocalDate dataDemissao;
+
+    private BigDecimal salarioBruto = new BigDecimal(0.0);
+
+    @OneToMany
+    private List<Calculo> calculos;
     
     public void setCpf(String cpf) {
         this.cpf = cpf;
