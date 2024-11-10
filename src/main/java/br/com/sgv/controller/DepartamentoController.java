@@ -68,7 +68,6 @@ public class DepartamentoController {
         return "redirect:/departamentos";
     }
     
-    // TODO: POST   /departamentos/{{ID_DEP}}/funcionario
     @PostMapping("/{id}/funcionario")
     public String adicionarFuncionario(
             @PathVariable("id") long idDepartamento,
@@ -84,7 +83,7 @@ public class DepartamentoController {
         return "redirect:/departamentos";
     }
     
-    @PostMapping("/{idDep}/funcionario/{idFunc}")
+    @DeleteMapping("/{idDep}/funcionario/{idFunc}")
     public String removerFuncionario(
             @PathVariable("idDep") long idDepartamento,
             @PathVariable("idFunc") long idFuncionario,

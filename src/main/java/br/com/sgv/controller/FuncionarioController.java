@@ -3,6 +3,7 @@ package br.com.sgv.controller;
 import br.com.sgv.model.Funcionario;
 import br.com.sgv.repository.FuncionarioRepository;
 import jakarta.validation.Valid;
+import java.time.LocalDate;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +52,21 @@ public class FuncionarioController {
             return "editar_funcionario";
         }
         funcionarioRepository.save(funcionario);
+        return "redirect:/funcionarios";
+    }
+
+    @GetMapping("/{id}/demitir")
+    public String demitir(@PathVariable("id") long id) {
+        Optional<Funcionario> funcionarioOpt = funcionarioRepository.findById(id);
+        System.out.println("funcionario demitir");
+
+        if (funcionarioOpt.isPresent()) {
+            var funcionario = funcionarioOpt.get();
+            funcionario.setDataDemissao(LocalDate.now());
+
+            funcionarioRepository.save(funcionario);
+        }
+
         return "redirect:/funcionarios";
     }
 

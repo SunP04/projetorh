@@ -18,6 +18,7 @@ public abstract class Calculo {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
+    private String descricao;
 
     abstract BigDecimal aplicarCalculo(Funcionario funcionario);
 }

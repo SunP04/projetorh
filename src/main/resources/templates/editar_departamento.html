@@ -57,6 +57,15 @@
             method="post"
           >
             <input type="hidden" th:field="*{codigoDepartamento}" id="id" />
+
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="nome">Descrição: </label>
+                    <input type="text" minlength="1" th:field="*{descricao}" id="descricao" placeholder="Descricao do departamento" class="form-control">
+                </div>    
+                <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="alert alert-warning"></span>                        
+            </div>
+
             <h3>Dados do Departmento:</h3>
             <hr />
             <div class="row">

@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -36,6 +38,17 @@ public class Funcionario {
     
     public String getDataAdmissaoFormatada() {
         return this.dataAdmissao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
+    public String getSalarioBrutoFormatado() {
+        salarioBruto = salarioBruto.setScale(2, RoundingMode.FLOOR);
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        df.setMinimumFractionDigits(0);
+        df.setGroupingUsed(false);
+        String twoDecimalMoney = df.format(salarioBruto);
+
+        return String.format("R$ %s", twoDecimalMoney);
     }
     
     // https://www.devmedia.com.br/validando-o-cpf-em-uma-aplicacao-java/22097
