@@ -47,51 +47,45 @@
   <body>
     <div th:replace="header :: header">...</div>
     <div class="container" style="margin-top: 50px">
-      <h2 class="alert alert-dark">Editar Departamento</h2>
+      <h2 class="alert alert-dark">Editar Calculos do Funcionário</h2>
       <div class="row">
         <div class="col">
           <form
             action="#"
-            th:action="@{/departamentos}"
-            th:object="${departamento}"
+            th:action="@{/funcionarios/${funcionario.codigoCadastro}/calculos}"
+            th:object="${funcionario}"
             method="post"
           >
-            <input type="hidden" th:field="*{codigoDepartamento}" id="id" />
+            <input type="hidden" th:field="*{codigoCadastro}" id="id" />
 
-            <div class="row">
-                <div class="col-md-12 mb-3">
-                    <label for="nome">Descrição: </label>
-                    <input type="text" minlength="1" th:field="*{descricao}" id="descricao" placeholder="Descricao do departamento" class="form-control">
-                </div>    
-                <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="alert alert-warning"></span>                        
-            </div>
-
-            <h3>Dados do Departmento:</h3>
+            <h3>Calculos do Funcionário:</h3>
             <hr />
             <div class="row">
               <div class="col-md-12 mb-3">
                 <table
-                  id="TabelaDepartamentoFuncionario"
+                  id="TabelaCalculoFuncionario"
                   class="table table-striped"
                 >
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Nome</th>
+                      <th>Tipo</th>
+                      <th>Descrição</th>
                       <th>Excluir</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr
-                      th:each="f : ${departamento.funcionarios}"
-                      th:field="*{funcionarios}"
+                      th:each="c : ${funcionario.calculos}"
+                      th:field="*{calculos}"
                     >
-                      <td th:text="${f.codigoCadastro}"></td>
-                      <td th:text="${f.nome}"></td>
+                      <td th:text="${c.id}"></td>
+                      <td th:text="${c.getClass().getSimpleName()}"></td>
+                      <td th:text="${c.descricao}"></td>
                       <td>
                         <form
                           method="post"
-                          th:action="@{|/departamentos/${departamento.codigoDepartamento}/funcionarios/${f.codigoCadastro}|}"
+                          th:action="@{|/funcionarios/${departamento.codigoDepartamento}/calculos/${c.id}|}"
                         >
                           <button type="submit" class="btn btn-danger">
                             <i class="bi bi-trash"></i>
@@ -109,32 +103,34 @@
               value="Salvar"
               class="btn btn-success btn-block"
             />
-            <a href="/departamentos" class="btn btn-secondary btn-block"
+            <a
+              href="/funcionarios/{funcionario.codigoCadastro}"
+              class="btn btn-secondary btn-block"
               >Fechar</a
             >
           </form>
         </div>
         <div class="col">
           <form
-            th:action="@{|/departamentos/${departamento.codigoDepartamento}/funcionario|}"
-            th:object="${funcionario}"
+            th:action="@{|/funcionarios/${funcionario.codigoCadastro}/calculos|}"
+            th:object="${calculo}"
             method="post"
           >
-            <h3>Adicionar novos funcionários</h3>
+            <h3>Adicionar novos cálculos</h3>
             <hr />
             <div class="row">
               <div class="col">
-                <label for="quantidade">Funcionarios</label>
+                <label for="comboCalculo">Cálculos:</label>
                 <select
                   class="form-control"
-                  id="comboFuncionario"
-                  th:field="*{codigoCadastro}"
+                  id="comboCalculo"
+                  th:field="*{id}"
                 >
-                  <option value="0">Selecione o Funcionario</option>
+                  <option value="0">Selecione o Cálculo:</option>
                   <option
-                    th:each="f : ${listaFuncionario}"
-                    th:value="${f.codigoCadastro}"
-                    th:text="${f.nome}"
+                    th:each="c : ${listaCalculo}"
+                    th:value="${c.id}"
+                    th:text="${c.descricao}"
                   ></option>
                 </select>
               </div>
@@ -143,7 +139,7 @@
               <div class="col">
                 <hr />
                 <input
-                  id="adicionarFuncionario"
+                  id="adicionarCalculo"
                   type="submit"
                   value="Adicionar"
                   class="btn btn-primary btn-block"
@@ -157,7 +153,7 @@
     </div>
     <script>
       $(document).ready(function () {
-        $("#TabelaItens").DataTable({
+        $("#TabelaCalculoFuncionario").DataTable({
           language: {
             sProcessing: "Procesando...",
             sLengthMenu: "Exibir _MENU_ registros por página",

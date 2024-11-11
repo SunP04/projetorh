@@ -10,6 +10,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -30,7 +31,7 @@ public class Funcionario {
     private BigDecimal salarioBruto = new BigDecimal(0.0);
 
     @OneToMany
-    private List<Calculo> calculos;
+    private List<Calculo> calculos = new ArrayList<>();
     
     public void setCpf(String cpf) {
         this.cpf = cpf;
@@ -38,6 +39,14 @@ public class Funcionario {
     
     public String getDataAdmissaoFormatada() {
         return this.dataAdmissao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
+    public void adicionarCalculo(Calculo calculo) {
+        this.calculos.add(calculo);
+    }
+
+    public void removerCalculo(Calculo calculo) {
+        this.calculos.remove(calculo);
     }
 
     public String getSalarioBrutoFormatado() {

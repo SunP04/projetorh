@@ -44,9 +44,15 @@
                     </div>    
                     <span th:if="${#fields.hasErrors('salarioBruto')}" th:errors="*{salarioBruto}" class="alert alert-warning"></span>
                 </div>
-                <hr class="mb-4">
+                <div class="mb-2"></div>
                 <input type="submit" value="Salvar" class="btn btn-success btn-block">
                 <a th:href="@{|/funcionarios/${funcionario.codigoCadastro}/demitir|}" class="btn btn-secondary btn-danger btn-block">Demitir</a>
+                <div class="mb-2"></div>
+                <div sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{|/funcionarios/${funcionario.codigoCadastro}/calculos/novo|}" class="btn btn-secondary btn-warning btn-block">Adicionar Cálculos</a>
+                </div>
+                <div class="mb-2"></div>
+                
                 <a href="/funcionarios" class="btn btn-secondary btn-block" >Fechar</a>
             </form>
         </div>

@@ -1,6 +1,8 @@
 package br.com.sgv.controller;
 
+import br.com.sgv.model.Calculo;
 import br.com.sgv.model.Funcionario;
+import br.com.sgv.repository.CalculoRepository;
 import br.com.sgv.repository.FuncionarioRepository;
 import jakarta.validation.Valid;
 import java.time.LocalDate;
@@ -11,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class FuncionarioController {
     @Autowired
     private FuncionarioRepository funcionarioRepository;
+
+    @Autowired
+    private CalculoRepository calculoRepository;
 
     @GetMapping()
     public String listar(Model model) {
@@ -58,7 +62,6 @@ public class FuncionarioController {
     @GetMapping("/{id}/demitir")
     public String demitir(@PathVariable("id") long id) {
         Optional<Funcionario> funcionarioOpt = funcionarioRepository.findById(id);
-        System.out.println("funcionario demitir");
 
         if (funcionarioOpt.isPresent()) {
             var funcionario = funcionarioOpt.get();
@@ -75,5 +78,6 @@ public class FuncionarioController {
         funcionarioRepository.deleteById(id);
         return "redirect:/funcionarios";
     }
+
 }
          
