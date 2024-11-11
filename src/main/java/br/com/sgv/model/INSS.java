@@ -18,7 +18,8 @@ public class INSS extends Calculo {
         // Calculo simplificado de INSS (aproximado): base * aliquota - constante
         var valorInss = baseInss.multiply(aliquota).subtract(parcelaDeduzir);
 
-        return valorInss;
+        // Valor de INSS deduz do salário, então é retornado um valor negativo
+        return valorInss.multiply(new BigDecimal(-1));
     }
 
 }

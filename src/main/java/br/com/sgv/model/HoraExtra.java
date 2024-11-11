@@ -18,6 +18,6 @@ public class HoraExtra extends Calculo {
         BigDecimal salarioPorHora = funcionario.getSalarioBruto().divide(new BigDecimal(horasPorMes));
         BigDecimal valorHoraExtra = salarioPorHora.multiply(new BigDecimal(getPercentual() + 1));
 
-        return funcionario.getSalarioBruto().add(valorHoraExtra);
+        return valorHoraExtra;
     }
 }

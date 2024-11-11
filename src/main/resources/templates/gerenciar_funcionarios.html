@@ -26,6 +26,7 @@
                         <th>Código</th>
                         <th>Nome</th>
                         <th>CPF</th>
+                        <th>Salário Liquido</th>
                         <th>Data Admissão</th>
                         <th>Status Demissão</th>
                         <th>Alterar</th>
@@ -37,6 +38,7 @@
                         <td th:text="${f.codigoCadastro}"></td>
                         <td th:text="${f.nome}"></td>
                         <td th:text="${f.cpf}"></td>
+                        <td th:text="${f.getSalarioLiquidoFormatado()}"></td>
                         <td th:text="${f.dataAdmissao} == null ? 'Não Encontrado' : ${f.getDataAdmissaoFormatada()}"></td>
                         <td th:text="${f.dataDemissao} == null ? 'Em Atuação' : 'Demitido'"></td>
                         <td><a th:href="@{|/funcionarios/${f.codigoCadastro}|}" class="btn btn-warning"><i class="bi bi-pencil"></i></a></td>

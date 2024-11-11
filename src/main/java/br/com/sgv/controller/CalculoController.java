@@ -41,10 +41,9 @@ public class CalculoController {
     @PostMapping("/funcionarios/{idFunc}/calculos")
     public String novoCalculo(
         @PathVariable("idFunc") long idFuncionario,
-        @Value Calculo calculo,
+        @Valid Calculo calculo,
         Model model) {
 
-        System.out.printf("ID CALCULO: %s\n", idCalculo);
         return String.format("redirect:/funcionarios/%d/calculos/novo", idFuncionario);
     }
 }

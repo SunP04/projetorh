@@ -41,6 +41,22 @@ public class Funcionario {
         return this.dataAdmissao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
+    public String getSalarioLiquidoFormatado() {
+        var salarioLiquido = calculos.stream()
+            .map(c -> c.aplicarCalculo(this))
+            .reduce(salarioBruto, (salario, calculo) -> salario.add(calculo));
+            
+        salarioLiquido = salarioLiquido.setScale(2, RoundingMode.FLOOR);
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        df.setMinimumFractionDigits(0);
+        df.setGroupingUsed(false);
+        String twoDecimalMoney = df.format(salarioLiquido);
+
+        return String.format("R$ %s", twoDecimalMoney);
+        
+    }
+
     public void adicionarCalculo(Calculo calculo) {
         this.calculos.add(calculo);
     }
