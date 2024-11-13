@@ -15,7 +15,8 @@ public class HoraExtra extends Calculo {
     @Override
     BigDecimal aplicarCalculo(Funcionario funcionario) {
         // salario mensal / horas mensais
-        BigDecimal salarioPorHora = funcionario.getSalarioBruto().divide(new BigDecimal(horasPorMes));
+        // stackoverflow q salva
+        BigDecimal salarioPorHora = funcionario.getSalarioBruto().divide(new BigDecimal(horasPorMes), 2, RoundingMode.HALF_UP);
         BigDecimal valorHoraExtra = salarioPorHora.multiply(new BigDecimal(getPercentual() + 1));
 
         return valorHoraExtra;
