@@ -21,7 +21,7 @@ public class CalculoController {
     @Autowired
     private FuncionarioRepository funcionarioRepository;
 
-    @GetMapping()
+    @GetMapping("/calculos")
     public String listar(Model model) {
         model.addAttribute("listaCalculo", calculoRepository.findAll());
         
@@ -41,9 +41,17 @@ public class CalculoController {
     @PostMapping("/funcionarios/{idFunc}/calculos")
     public String novoCalculo(
         @PathVariable("idFunc") long idFuncionario,
-        @Valid Calculo calculo,
+        @Valid HoraExtra calculo,
         Model model) {
-
+        Optional<Funcionario> fc = funcionarioRepository.findById(idFuncionario);
+        
+        if (fc.isEmpty()) {
+            return "redirect:/funcionarios";
+        }
+        
+        Funcionario funcionario = fc.get();
+        funcionario.adicionarCalculo(calculo);
+        funcionarioRepository.save(funcionario);
         return String.format("redirect:/funcionarios/%d/calculos/novo", idFuncionario);
     }
 }
