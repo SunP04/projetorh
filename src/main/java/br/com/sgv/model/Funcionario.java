@@ -30,7 +30,7 @@ public class Funcionario {
 
     private BigDecimal salarioBruto = new BigDecimal(0.0);
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<Calculo> calculos = new ArrayList<>();
     
     public void setCpf(String cpf) {
