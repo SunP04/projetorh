@@ -49,7 +49,7 @@
                 <a th:href="@{|/funcionarios/${funcionario.codigoCadastro}/demitir|}" class="btn btn-secondary btn-danger btn-block">Demitir</a>
                 <div class="mb-2"></div>
                 <div sec:authorize="hasRole('ADMIN')">
-                    <a th:href="@{|/funcionarios/${funcionario.codigoCadastro}/calculos/novo|}" class="btn btn-secondary btn-warning btn-block">Cálculos</a>
+                    <a th:href="@{|/funcionarios/${funcionario.codigoCadastro}/calculos|}" class="btn btn-secondary btn-warning btn-block">Cálculos</a>
                 </div>
                 <div class="mb-2"></div>
                 

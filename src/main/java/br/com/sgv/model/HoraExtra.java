@@ -2,6 +2,7 @@ package br.com.sgv.model;
 
 import jakarta.persistence.Entity;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import lombok.Data;
 
 @Entity

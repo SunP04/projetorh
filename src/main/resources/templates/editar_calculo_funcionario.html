@@ -52,7 +52,7 @@
         <div class="col">
           <form
             action="#"
-            th:action="@{/funcionarios/${funcionario.codigoCadastro}/calculos}"
+            th:action="@{|/funcionarios/${funcionario.codigoCadastro}/calculos|}"
             th:object="${funcionario}"
             method="post"
           >
@@ -83,14 +83,11 @@
                       <td th:text="${c.getClass().getSimpleName()}"></td>
                       <td th:text="${c.descricao}"></td>
                       <td>
-                        <form
-                          method="post"
-                          th:action="@{|/funcionarios/${departamento.codigoDepartamento}/calculos/${c.id}|}"
-                        >
-                          <button type="submit" class="btn btn-danger">
+                          <a 
+                              th:href="@{|/funcionarios/${funcionario.codigoCadastro}/calculos/${c.id}|}"
+                              class="btn btn-danger">
                             <i class="bi bi-trash"></i>
-                          </button>
-                        </form>
+                          </a>
                       </td>
                     </tr>
                   </tbody>
@@ -104,7 +101,7 @@
               class="btn btn-success btn-block"
             />
             <a
-              href="/funcionarios/{funcionario.codigoCadastro}"
+              href="/funcionarios/${funcionario.codigoCadastro}"
               class="btn btn-secondary btn-block"
               >Fechar</a
             >

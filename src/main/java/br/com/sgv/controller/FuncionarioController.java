@@ -1,8 +1,6 @@
 package br.com.sgv.controller;
 
-import br.com.sgv.model.Calculo;
 import br.com.sgv.model.Funcionario;
-import br.com.sgv.repository.CalculoRepository;
 import br.com.sgv.repository.FuncionarioRepository;
 import jakarta.validation.Valid;
 import java.time.LocalDate;
@@ -23,8 +21,6 @@ public class FuncionarioController {
     @Autowired
     private FuncionarioRepository funcionarioRepository;
 
-    @Autowired
-    private CalculoRepository calculoRepository;
 
     @GetMapping()
     public String listar(Model model) {

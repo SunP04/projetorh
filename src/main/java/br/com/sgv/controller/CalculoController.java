@@ -1,18 +1,18 @@
 package br.com.sgv.controller;
 
 import br.com.sgv.model.Calculo;
+import br.com.sgv.model.Funcionario;
 import br.com.sgv.model.HoraExtra;
 import br.com.sgv.repository.CalculoRepository;
 import br.com.sgv.repository.FuncionarioRepository;
 import jakarta.validation.Valid;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class CalculoController {
@@ -28,8 +28,8 @@ public class CalculoController {
         return "gerenciar_calculos";
     }
 
-    @GetMapping("/funcionarios/{id}/calculos/novo")
-    public String novoCalculo(@PathVariable("id") long id, Model model) {
+    @GetMapping("/funcionarios/{id}/calculos")
+    public String verCalculos(@PathVariable("id") long id, Model model) {
         model.addAttribute("funcionario", funcionarioRepository.findById(id).get());
         model.addAttribute("listaCalculo", calculoRepository.findAll());
         // Filler para cálculo, já que Calculo é abstrato.
@@ -44,15 +44,37 @@ public class CalculoController {
         @Valid HoraExtra calculo,
         Model model) {
         Optional<Funcionario> fc = funcionarioRepository.findById(idFuncionario);
+        Optional<Calculo> calc = calculoRepository.findById(calculo.getId());
         
-        if (fc.isEmpty()) {
+        if (fc.isEmpty() || calc.isEmpty()) {
             return "redirect:/funcionarios";
         }
         
         Funcionario funcionario = fc.get();
-        funcionario.adicionarCalculo(calculo);
+        funcionario.adicionarCalculo(calc.get());
         funcionarioRepository.save(funcionario);
-        return String.format("redirect:/funcionarios/%d/calculos/novo", idFuncionario);
+        
+        return String.format("redirect:/funcionarios/%d/calculos", idFuncionario);
+    }
+
+    // Tive problemas com form dentro de forms, então usei de um anchor
+    @GetMapping("/funcionarios/{idFunc}/calculos/{idCalculo}")
+    public String removerCalculo(
+        @PathVariable("idFunc") long idFuncionario,
+        @PathVariable("idCalculo") long idCalculo,
+        Model model) {
+        Optional<Funcionario> fc = funcionarioRepository.findById(idFuncionario);
+        Optional<Calculo> calc = calculoRepository.findById(idCalculo);
+        
+        if (fc.isEmpty() || calc.isEmpty()) {
+            return "redirect:/funcionarios";
+        }
+        
+        Funcionario funcionario = fc.get();
+        funcionario.removerCalculo(calc.get());
+        funcionarioRepository.save(funcionario);
+        
+        return String.format("redirect:/funcionarios/%d/calculos", idFuncionario);
     }
 }
          
