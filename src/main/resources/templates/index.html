@@ -11,7 +11,25 @@
     </head>
     <body>
         <div th:replace="header :: header">...</div>
-        
+        <div class="d-flex flex-column justify-items-center mt-5 px-5">
+            <h1 class="font-weight-bold display-3 text-center">Sistema RH</h1>
+            <h2 class="text-center display-6">Comece a usar nosso sistema com funções abaixo:</h2>
+
+            <div class="px-4 mt-5 d-flex flex-column align-items-center container-fluid">
+                <div class="p-2 border border-dark rounded container-fluid">
+                    <div sec:authorize="hasRole('ADMIN')" class="mb-2">
+                        <a href="/calculos" class="btn btn-warning btn-block">Cálculos</a>
+                        <a href="/usuarios" class="btn btn-warning btn-block">Usuários</a>
+                    </div>
+
+                    <a href="/funcionarios" class="btn btn-primary btn-block">Funcionários</a>
+                    <a href="/departamentos" class="btn btn-info btn-block">Departamentos</a>
+                    <a href="/ferias" class="btn btn-success btn-block">Avisos de Férias</a>
+                </div>
+
+            </div>
+
+        </div>
     </body>
 
 </html>
