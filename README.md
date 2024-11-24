@@ -1,6 +1,10 @@
-# sgv
-Sistema Gerenciador de Vendas
-Sistema-exemplo para os alunos da disciplina de Programação Orientada a Objetos em Java.
+# RH
+
+Projeto Estácio - Sistema RH
+
+Sistema criado como projeto de aula de Java, para a Universidade Estácio de Sá.
+
+## Como rodar o projeto
 
 1- Desinstale qualquer jdk existente;
 1- Instale a JDK da Oracle (java 17)
