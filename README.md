@@ -20,11 +20,7 @@ Sistema criado como projeto de aula de Java, para a Universidade Estácio de Sá
 7- Coloque no campo JDBC URL: jdbc:h2:~/db
 8- Coloque no campo user: sgv
 9- Coloque no campo password: 123  
-10- Cole o seguinte comando na caixa de comandos: 
-
-insert into Usuario (login,senha, papel, id) values
-('admin','$2a$10$K6PG.YUsSpMT/LOyPpeB5eUVdPImfDfSH.N0xLHAC1NbgbIBhraHe','ADMIN',1);
-
+10- Rode todos os arquivos na pasta <project>/src/main/resources/sql
 11- Clique no botão run (botão verde);
 
 12- No navegador, escreva o endereço: https://localhost:8443/.
